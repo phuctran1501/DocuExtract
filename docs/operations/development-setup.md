@@ -1,25 +1,25 @@
-# Development Setup
+# Hướng Dẫn Cài Đặt Môi Trường Phát Triển
 
-> This file documents the intended setup baseline. Adjust commands to the actual package manager and project files once the repository is initialized.
+> File này ghi lại baseline cài đặt dự kiến. Hãy điều chỉnh các lệnh phù hợp với package manager và các file project thực tế sau khi repository được khởi tạo.
 
-## 1. Prerequisites
+## 1. Yêu cầu tiên quyết
 
 - Git
-- Python 3.12 or newer
-- `uv` for Python project/dependency management (recommended for this project)
-- Antigravity with the workspace opened at the repository root
+- Python 3.12 trở lên
+- `uv` để quản lý Python project/dependency (được khuyến nghị cho dự án này)
+- Antigravity với workspace được mở tại thư mục gốc của repository
 
-## 2. Initialize the Python project (first setup only)
+## 2. Khởi tạo Python project (chỉ lần cài đặt đầu tiên)
 
-If the repository does not yet have a `pyproject.toml`:
+Nếu repository chưa có `pyproject.toml`:
 
 ```bash
 uv init --python 3.12
 ```
 
-If `pyproject.toml` already exists, do not run `uv init` over it. Inspect it and preserve its current package-manager setup.
+Nếu `pyproject.toml` đã tồn tại, không chạy lại `uv init`. Hãy kiểm tra file đó và giữ nguyên cài đặt package manager hiện tại.
 
-## 3. Add the initial dependencies
+## 3. Thêm các dependency ban đầu
 
 ```bash
 uv add fastapi "uvicorn[standard]" pydantic-settings python-multipart pypdf python-docx
@@ -27,19 +27,19 @@ uv add --dev pytest httpx ruff
 uv sync
 ```
 
-Only add dependencies that the current milestone actually uses. For example, `python-multipart` is needed for FastAPI multipart uploads; document parsers are needed when PDF/DOCX parsing is implemented.
+Chỉ thêm các dependency mà milestone hiện tại thực sự cần. Ví dụ, `python-multipart` cần thiết cho FastAPI multipart uploads; các parser tài liệu cần thiết khi triển khai phân tích PDF/DOCX.
 
-## 4. Run the API
+## 4. Chạy API
 
-After the application entry point exists:
+Sau khi điểm vào ứng dụng tồn tại:
 
 ```bash
 uv run uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Open the generated API documentation at `http://127.0.0.1:8000/docs` and the health endpoint at `http://127.0.0.1:8000/health` when implemented.
+Mở tài liệu API được tạo tự động tại `http://127.0.0.1:8000/docs` và health endpoint tại `http://127.0.0.1:8000/health` khi đã được triển khai.
 
-## 5. Run checks
+## 5. Chạy các kiểm tra
 
 ```bash
 uv run pytest
@@ -47,18 +47,18 @@ uv run ruff check .
 uv run ruff format --check .
 ```
 
-To format files intentionally:
+Để format file một cách có chủ đích:
 
 ```bash
 uv run ruff format .
 ```
 
-Review the diff after formatting; do not format unrelated files.
+Hãy xem lại diff sau khi format; không format các file không liên quan.
 
-## 6. Environment variables
+## 6. Biến môi trường
 
-Create a local `.env` only when settings require it. Commit `.env.example` with placeholder values and add `.env` to `.gitignore`. Never put API keys, passwords, JWT secrets, or private URLs in tracked Markdown.
+Chỉ tạo file `.env` cục bộ khi các cài đặt yêu cầu. Commit file `.env.example` với các giá trị placeholder và thêm `.env` vào `.gitignore`. Không bao giờ đặt API key, mật khẩu, JWT secret hay URL riêng tư vào các file Markdown được theo dõi bởi Git.
 
-## 7. Docker (later milestone)
+## 7. Docker (milestone sau)
 
-Docker commands should be added after a Dockerfile and compose configuration exist. Do not instruct contributors to run commands that are not present in the repository. Avoid destructive volume-reset commands unless the owner explicitly intends to delete local data.
+Các lệnh Docker nên được thêm vào sau khi Dockerfile và cấu hình compose tồn tại. Không hướng dẫn cộng tác viên chạy các lệnh không có trong repository. Tránh các lệnh reset volume mang tính phá hủy dữ liệu trừ khi người dùng có chủ ý xóa dữ liệu cục bộ.

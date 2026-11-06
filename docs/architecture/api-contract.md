@@ -1,22 +1,22 @@
 # DocuExtract — API Contract (v1)
 
-**Status:** Proposed contract. The implemented OpenAPI document must match this file; update both together.
+**Trạng thái:** Contract đề xuất. Tài liệu OpenAPI được implement phải khớp với file này; cập nhật cả hai cùng lúc.
 
-## 1. Conventions
+## 1. Quy ước chung
 
 - Base path: `/api/v1`
 - Content negotiation: JSON responses.
 - Upload: `multipart/form-data`.
 - File field: `file`.
-- Allowed file formats: PDF and DOCX.
-- Default upload limit: 10 MiB, configurable.
-- Text encoding: UTF-8 in JSON responses.
+- Định dạng file được phép: PDF và DOCX.
+- Giới hạn upload mặc định: 10 MiB, có thể cấu hình.
+- Mã hóa văn bản: UTF-8 trong JSON responses.
 
 ## 2. Health
 
 ### `GET /health`
 
-Returns HTTP `200` when the process is alive and able to serve requests.
+Trả về HTTP `200` khi process đang hoạt động và có thể phục vụ request.
 
 ```json
 {
@@ -25,9 +25,9 @@ Returns HTTP `200` when the process is alive and able to serve requests.
 }
 ```
 
-Do not report downstream dependencies that do not exist. Add readiness checks only when the service gains dependencies that can actually become unavailable.
+Không báo cáo các downstream dependency chưa tồn tại. Chỉ thêm readiness check khi service có các dependency thực sự có thể trở nên không khả dụng.
 
-## 3. Extract document
+## 3. Trích xuất tài liệu
 
 ### `POST /api/v1/documents/extract`
 
@@ -35,9 +35,9 @@ Do not report downstream dependencies that do not exist. Add readiness checks on
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `file` | binary file | Yes | A PDF or DOCX document |
+| `file` | binary file | Yes | Một tài liệu PDF hoặc DOCX |
 
-**Success:** HTTP `200 OK`
+**Thành công:** HTTP `200 OK`
 
 ```json
 {
@@ -57,11 +57,11 @@ Do not report downstream dependencies that do not exist. Add readiness checks on
 }
 ```
 
-For DOCX, `page_count` is `null` because DOCX does not provide a stable page count independent of a rendering engine. The exact paragraph/table ordering and whitespace normalization must be documented by the parser tests.
+Với DOCX, `page_count` là `null` vì DOCX không cung cấp số trang ổn định độc lập với rendering engine. Thứ tự paragraph/table và chuẩn hóa khoảng trắng phải được ghi lại trong parser tests.
 
-A document with no extractable text should not silently look like a successful useful extraction. Return a documented warning or a stable `NO_EXTRACTABLE_TEXT` error according to the final implementation decision. Do not claim OCR support.
+Một tài liệu không có văn bản có thể trích xuất không được im lặng trông như một lần trích xuất thành công hữu ích. Trả về một warning được ghi lại hoặc một lỗi `NO_EXTRACTABLE_TEXT` ổn định theo quyết định implementation cuối cùng. Không tuyên bố hỗ trợ OCR.
 
-## 4. Analyze text (optional MVP endpoint)
+## 4. Phân tích văn bản (endpoint MVP tùy chọn)
 
 ### `POST /api/v1/text/analyze`
 
@@ -73,7 +73,7 @@ A document with no extractable text should not silently look like a successful u
 }
 ```
 
-**Success:** HTTP `200 OK`
+**Thành công:** HTTP `200 OK`
 
 ```json
 {
@@ -83,11 +83,11 @@ A document with no extractable text should not silently look like a successful u
 }
 ```
 
-This endpoint is optional and should not delay the core document extraction flow.
+Endpoint này là tùy chọn và không được làm chậm luồng trích xuất tài liệu cốt lõi.
 
 ## 5. Error contract
 
-All expected API errors use the same envelope:
+Tất cả các lỗi API được kỳ vọng đều dùng cùng một envelope:
 
 ```json
 {
@@ -99,31 +99,31 @@ All expected API errors use the same envelope:
 }
 ```
 
-The `correlation_id` may be omitted only when a request has not yet been assigned one. Never include stack traces or internal parser messages in the public message.
+`correlation_id` chỉ có thể bị bỏ qua khi một request chưa được gán một ID. Không bao giờ đưa stack trace hoặc nội dung lỗi parser nội bộ vào message công khai.
 
-| HTTP status | Error code | Meaning |
+| HTTP status | Error code | Ý nghĩa |
 |---:|---|---|
-| 400 | `INVALID_REQUEST` | Missing or malformed request input |
-| 413 | `FILE_TOO_LARGE` | Upload exceeds configured limit |
-| 415 | `UNSUPPORTED_FILE_TYPE` | Unsupported file format or detected content |
-| 422 | `INVALID_DOCUMENT` | File is malformed, unreadable, or structurally invalid |
-| 422 | `ENCRYPTED_DOCUMENT` | Encrypted/password-protected document cannot be read |
-| 422 | `NO_EXTRACTABLE_TEXT` | No text could be extracted and OCR is unavailable |
-| 500 | `EXTRACTION_FAILED` | Unexpected extraction failure; details remain in server logs |
-| 503 | `SERVICE_UNAVAILABLE` | Service cannot currently process requests |
+| 400 | `INVALID_REQUEST` | Thiếu hoặc request input sai định dạng |
+| 413 | `FILE_TOO_LARGE` | Upload vượt quá giới hạn đã cấu hình |
+| 415 | `UNSUPPORTED_FILE_TYPE` | Định dạng file không được hỗ trợ hoặc nội dung không hợp lệ |
+| 422 | `INVALID_DOCUMENT` | File bị lỗi, không đọc được, hoặc cấu trúc không hợp lệ |
+| 422 | `ENCRYPTED_DOCUMENT` | Tài liệu được mã hóa/bảo vệ bằng mật khẩu, không thể đọc |
+| 422 | `NO_EXTRACTABLE_TEXT` | Không thể trích xuất văn bản và OCR không khả dụng |
+| 500 | `EXTRACTION_FAILED` | Lỗi trích xuất không mong đợi; chi tiết được lưu trong server logs |
+| 503 | `SERVICE_UNAVAILABLE` | Service hiện không thể xử lý request |
 
-The implementation may refine this table, but changes must be reflected in tests and this document.
+Implementation có thể tinh chỉnh bảng này, nhưng các thay đổi phải được phản ánh trong tests và tài liệu này.
 
-## 6. ASP.NET Core client expectations
+## 6. Kỳ vọng từ phía ASP.NET Core client
 
-The caller should:
-- Send the file as multipart field `file`.
-- Set an explicit timeout appropriate to the maximum document size.
-- Pass `CancellationToken` through the application call chain.
-- Handle `200`, `4xx`, `5xx`, timeout, connection failure, and invalid response JSON separately.
-- Preserve the correlation ID for diagnostics.
-- Avoid retrying non-idempotent uploads blindly. A retry policy must account for file size, timeout, and whether processing has side effects (the MVP should not have side effects).
+Caller nên:
+- Gửi file dưới dạng multipart field `file`.
+- Đặt timeout rõ ràng phù hợp với kích thước tài liệu tối đa.
+- Truyền `CancellationToken` xuyên suốt chuỗi gọi hàm của application.
+- Xử lý riêng biệt: `200`, `4xx`, `5xx`, timeout, connection failure, và JSON response không hợp lệ.
+- Giữ lại correlation ID để phục vụ chẩn đoán.
+- Tránh retry các upload non-idempotent một cách mù quáng. Retry policy phải tính đến kích thước file, timeout, và liệu việc xử lý có side effect hay không (MVP không nên có side effect).
 
-## 7. Contract-change policy
+## 7. Chính sách thay đổi contract
 
-Treat response field removal/renaming, changed field types, changed error semantics, and changed required multipart fields as potentially breaking changes. Update this document and add tests before implementation. Prefer additive optional fields for backward-compatible evolution.
+Coi việc xóa/đổi tên response field, thay đổi kiểu dữ liệu field, thay đổi ngữ nghĩa lỗi, và thay đổi multipart field bắt buộc là các breaking change tiềm năng. Cập nhật tài liệu này và thêm tests trước khi implementation. Ưu tiên các optional field bổ sung để phát triển tương thích ngược.

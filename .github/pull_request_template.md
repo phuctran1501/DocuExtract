@@ -1,52 +1,52 @@
-## Summary
+## Tóm tắt
 
-<!-- What changed and why? -->
+<!-- Thay đổi gì và tại sao? -->
 
-## Related issue / specification
+## Issue / đặc tả liên quan
 
 - Issue:
 - Spec / plan:
 
-## Change type
+## Loại thay đổi
 
-- [ ] Feature
-- [ ] Bug fix
+- [ ] Tính năng mới
+- [ ] Sửa lỗi
 - [ ] Refactor
-- [ ] Documentation
-- [ ] Infrastructure / CI
+- [ ] Tài liệu
+- [ ] Hạ tầng / CI
 
-## Implementation notes
+## Ghi chú triển khai
 
-<!-- Important design decisions, API changes, or dependencies. -->
+<!-- Các quyết định thiết kế quan trọng, thay đổi API, hoặc phụ thuộc. -->
 
-## Verification
+## Xác minh
 
-- [ ] Unit tests added/updated
-- [ ] API/integration tests added/updated
-- [ ] `pytest` passed
-- [ ] `ruff check .` passed
-- [ ] `ruff format --check .` passed
-- [ ] Manual verification completed (describe below)
+- [ ] Đã thêm/cập nhật unit tests
+- [ ] Đã thêm/cập nhật API/integration tests
+- [ ] `pytest` đã chạy thành công
+- [ ] `ruff check .` đã chạy thành công
+- [ ] `ruff format --check .` đã chạy thành công
+- [ ] Đã xác minh thủ công (mô tả bên dưới)
 
-Commands and actual results:
+Lệnh đã chạy và kết quả thực tế:
 
 ```text
 
 ```
 
-## Security and compatibility
+## Bảo mật và tương thích
 
-- [ ] No secrets or document contents are logged/committed
-- [ ] Upload validation and error behavior considered
-- [ ] API contract updated if needed
-- [ ] No breaking change, or migration is documented
+- [ ] Không có secret hay nội dung tài liệu bị ghi log/commit
+- [ ] Đã cân nhắc việc kiểm tra upload và xử lý lỗi
+- [ ] Đã cập nhật API contract nếu cần
+- [ ] Không có breaking change, hoặc đã có tài liệu hướng dẫn migration
 
-## Documentation
+## Tài liệu
 
-- [ ] README/setup updated if needed
-- [ ] Requirements/architecture/API contract/ADR updated if needed
-- [ ] Dev log added if this change introduces a meaningful concept
+- [ ] Đã cập nhật README/setup nếu cần
+- [ ] Đã cập nhật Requirements/architecture/API contract/ADR nếu cần
+- [ ] Đã thêm dev log nếu thay đổi này giới thiệu một khái niệm quan trọng
 
-## Reviewer notes
+## Ghi chú cho reviewer
 
-<!-- Known limitations, risks, follow-up work. -->
+<!-- Các hạn chế đã biết, rủi ro, công việc cần theo dõi tiếp. -->

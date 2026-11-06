@@ -1,72 +1,72 @@
-# DocuExtract — Development Roadmap
+# DocuExtract — Lộ Trình Phát Triển
 
-The roadmap is ordered to create a working vertical slice early. A later phase is not permission to build its infrastructure now.
+Lộ trình được sắp xếp để tạo ra một vertical slice hoạt động được sớm nhất có thể. Một giai đoạn sau không có nghĩa là được phép xây dựng cơ sở hạ tầng của nó ngay bây giờ.
 
-## Phase 0 — Repository foundation
+## Phase 0 — Nền tảng repository
 
-- [ ] Initialize Python project and package manager.
-- [ ] Create FastAPI application entry point.
-- [ ] Add settings/configuration and `/health` endpoint.
-- [ ] Add Ruff and pytest configuration.
-- [ ] Add local setup instructions and initial CI checks.
+- [ ] Khởi tạo Python project và package manager.
+- [ ] Tạo điểm vào ứng dụng FastAPI.
+- [ ] Thêm cài đặt/cấu hình và endpoint `/health`.
+- [ ] Thêm cấu hình Ruff và pytest.
+- [ ] Thêm hướng dẫn cài đặt cục bộ và các CI check ban đầu.
 
-**Exit criteria:** application starts locally; health endpoint and its test pass; setup is reproducible.
+**Tiêu chí thoát:** ứng dụng khởi động được ở local; health endpoint và test của nó pass; cài đặt có thể tái tạo được.
 
-## Phase 1 — Text-processing foundation
+## Phase 1 — Nền tảng xử lý văn bản
 
-- [ ] Define text normalization policy.
-- [ ] Implement deterministic character/word/line statistics.
-- [ ] Add unit tests for Unicode, whitespace, empty input, and line endings.
-- [ ] Add optional `POST /api/v1/text/analyze` endpoint.
+- [ ] Xác định chính sách chuẩn hóa văn bản.
+- [ ] Triển khai thống kê ký tự/từ/dòng mang tính xác định.
+- [ ] Thêm unit test cho Unicode, whitespace, input rỗng và các ký tự xuống dòng.
+- [ ] Thêm endpoint tùy chọn `POST /api/v1/text/analyze`.
 
-**Exit criteria:** service behavior is covered by unit and API tests.
+**Tiêu chí thoát:** hành vi của service được bao phủ bởi unit test và API test.
 
-## Phase 2 — PDF extraction
+## Phase 2 — Trích xuất PDF
 
-- [ ] Add PDF parser module using a focused library.
-- [ ] Validate PDF signature and malformed/encrypted files.
-- [ ] Extract text and page count.
-- [ ] Normalize text and produce response metadata.
-- [ ] Test empty/scanned-like PDFs and parser failure paths.
+- [ ] Thêm module parser PDF sử dụng một thư viện phù hợp.
+- [ ] Kiểm tra chữ ký PDF và các file bị lỗi/mã hóa.
+- [ ] Trích xuất văn bản và số trang.
+- [ ] Chuẩn hóa văn bản và tạo metadata cho response.
+- [ ] Test các PDF rỗng/dạng scan và các trường hợp lỗi parser.
 
-**Exit criteria:** valid text-based PDFs work; limitations are explicit; bad files do not crash the app.
+**Tiêu chí thoát:** các PDF có văn bản hợp lệ hoạt động được; giới hạn được nêu rõ ràng; các file lỗi không làm crash ứng dụng.
 
-## Phase 3 — DOCX extraction
+## Phase 3 — Trích xuất DOCX
 
-- [ ] Add DOCX parser module.
-- [ ] Define paragraph/table extraction ordering.
-- [ ] Validate DOCX container/content.
-- [ ] Add tests for paragraphs, tables, empty files, and malformed ZIP content.
+- [ ] Thêm module parser DOCX.
+- [ ] Xác định thứ tự trích xuất đoạn văn/bảng.
+- [ ] Kiểm tra container/nội dung DOCX.
+- [ ] Thêm test cho đoạn văn, bảng, file rỗng và nội dung ZIP bị lỗi.
 
-**Exit criteria:** valid DOCX files return deterministic text and metadata.
+**Tiêu chí thoát:** các file DOCX hợp lệ trả về văn bản và metadata mang tính xác định.
 
-## Phase 4 — Hardening and packaging
+## Phase 4 — Tăng cường độ bền vững và đóng gói
 
-- [ ] Enforce and test configurable upload-size limit.
-- [ ] Add correlation ID and structured logging.
-- [ ] Verify no document content is logged.
-- [ ] Add Dockerfile and non-root runtime.
-- [ ] Add CI for lint, format check, and tests.
-- [ ] Document health checks and service configuration.
+- [ ] Thực thi và test giới hạn kích thước upload có thể cấu hình.
+- [ ] Thêm correlation ID và structured logging.
+- [ ] Xác minh không có nội dung tài liệu nào bị ghi log.
+- [ ] Thêm Dockerfile và runtime chạy với quyền non-root.
+- [ ] Thêm CI cho lint, kiểm tra format và chạy test.
+- [ ] Tài liệu hóa health check và cấu hình service.
 
-**Exit criteria:** clean local build/test and container startup; expected failure modes are covered.
+**Tiêu chí thoát:** build/test local và khởi động container thành công; các trường hợp lỗi mong đợi được bao phủ.
 
-## Phase 5 — ASP.NET Core integration proof
+## Phase 5 — Bằng chứng tích hợp ASP.NET Core
 
-- [ ] Finalize the API contract.
-- [ ] Prepare a .NET `IDocumentExtractor` abstraction and Infrastructure typed `HttpClient` adapter in the consuming ASP.NET Core application.
-- [ ] Pass cancellation and correlation IDs.
-- [ ] Map timeout, connection failure, and downstream error responses.
-- [ ] Add an integration test against a running DocuExtract instance or a controlled HTTP stub.
+- [ ] Hoàn thiện API contract.
+- [ ] Chuẩn bị abstraction `IDocumentExtractor` cho .NET và adapter typed `HttpClient` trong Infrastructure của ứng dụng ASP.NET Core tiêu thụ.
+- [ ] Truyền cancellation và correlation ID.
+- [ ] Xử lý timeout, lỗi kết nối và các response lỗi từ downstream.
+- [ ] Thêm integration test chạy với một instance DocuExtract thực hoặc HTTP stub có kiểm soát.
 
-**Exit criteria:** the ASP.NET Core Application layer depends on an abstraction, while the Infrastructure adapter owns HTTP transport details.
+**Tiêu chí thoát:** tầng Application của ASP.NET Core phụ thuộc vào một abstraction, trong khi adapter Infrastructure sở hữu các chi tiết transport HTTP.
 
-## Later ideas — only after evidence
+## Ý tưởng cho tương lai — chỉ sau khi có bằng chứng
 
-- OCR for scanned PDFs.
-- Asynchronous job processing / queue / worker.
+- OCR cho các PDF dạng scan.
+- Xử lý job bất đồng bộ / queue / worker.
 - Object storage.
-- LLM-based CV understanding.
-- Authentication between services, rate limits, and production network policies.
+- Hiểu CV dựa trên LLM.
+- Xác thực giữa các service, rate limit và chính sách mạng cho production.
 
-Create an ADR and update requirements before adding any of these.
+Hãy tạo một ADR và cập nhật requirements trước khi thêm bất kỳ tính năng nào trong số này.

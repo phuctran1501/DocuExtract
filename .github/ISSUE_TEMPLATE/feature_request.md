@@ -1,43 +1,43 @@
 ---
 name: Feature request
-about: Propose a bounded feature or improvement for DocuExtract
+about: Đề xuất một tính năng hoặc cải tiến có phạm vi rõ ràng cho DocuExtract
 title: "feat: "
 labels: enhancement
 assignees: ""
 ---
 
-## Problem
-What problem should this solve?
+## Vấn đề
+Tính năng này giải quyết vấn đề gì?
 
-## Desired outcome
-What should the service do when this feature is complete?
+## Kết quả mong muốn
+Dịch vụ sẽ hoạt động như thế nào khi tính năng này hoàn chỉnh?
 
-## Scope
-### In scope
+## Phạm vi
+### Trong phạm vi
 - [ ] ...
 
-### Out of scope
+### Ngoài phạm vi
 - [ ] ...
 
-## Acceptance criteria
+## Tiêu chí chấp nhận
 - Given ...
 - When ...
 - Then ...
 
-## API / configuration impact
+## Tác động đến API / cấu hình
 - Endpoint/request/response:
-- Error cases:
-- Configuration/dependencies:
+- Các trường hợp lỗi:
+- Cấu hình/phụ thuộc:
 
-## Security and failure cases
-- Invalid/untrusted input:
-- Resource/timeout limits:
-- Sensitive data/logging:
+## Bảo mật và các trường hợp thất bại
+- Đầu vào không hợp lệ/không tin cậy:
+- Giới hạn tài nguyên/timeout:
+- Dữ liệu nhạy cảm/logging:
 
-## Test expectations
+## Yêu cầu kiểm thử
 - Unit tests:
 - API/integration tests:
 
-## References
+## Tài liệu tham khảo
 - Requirements/spec:
-- Related issue or ADR:
+- Issue hoặc ADR liên quan:

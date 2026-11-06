@@ -1,12 +1,12 @@
-# DocuExtract — Architecture
+# DocuExtract — Kiến trúc
 
-## 1. Architectural style
+## 1. Phong cách kiến trúc
 
-DocuExtract starts as a **single deployable FastAPI service with modular internal boundaries**. It is a microservice in the sense that it has an independently owned capability, runtime, API contract, and deployment lifecycle. It does not need multiple internal services to qualify as a useful service boundary.
+DocuExtract bắt đầu như một **FastAPI service đơn có thể triển khai độc lập với các ranh giới nội bộ theo module**. Đây là một microservice theo nghĩa nó có khả năng, runtime, hợp đồng API, và vòng đời triển khai được quản lý độc lập. Nó không cần nhiều service nội bộ để đủ điều kiện là một ranh giới service hữu ích.
 
-Do not reproduce the full ASP.NET Clean Architecture project structure by force. Use the smallest separation that keeps HTTP concerns, orchestration, and file parsing independently testable.
+Không tái tạo toàn bộ cấu trúc dự án ASP.NET Clean Architecture một cách ép buộc. Sử dụng sự phân tách nhỏ nhất giúp các mối quan tâm về HTTP, điều phối, và phân tích cú pháp file có thể kiểm thử độc lập.
 
-## 2. Context diagram
+## 2. Sơ đồ ngữ cảnh
 
 ```mermaid
 flowchart LR
@@ -21,7 +21,7 @@ flowchart LR
     API -->|JSON response| Client
 ```
 
-## 3. Proposed source layout
+## 3. Cấu trúc thư mục đề xuất
 
 ```text
 app/
@@ -38,30 +38,30 @@ tests/
 └── integration/            # API contract and HTTP behavior tests
 ```
 
-This is a target layout, not a mandate to reorganize working code without a task that requires it.
+Đây là cấu trúc mục tiêu, không phải yêu cầu bắt buộc phải tổ chức lại code đang hoạt động khi chưa có task yêu cầu.
 
-## 4. Dependency direction
+## 4. Hướng phụ thuộc
 
-- Routes depend on schemas and service interfaces/functions.
-- Services depend on parser contracts and processing utilities.
-- Format parsers should not import FastAPI or depend on HTTP request objects.
-- Schemas describe API data; they should not contain file parsing algorithms.
-- Core configuration and error mapping should remain small and focused.
-- Tests may depend on the modules they exercise; production modules must not import test code.
+- Routes phụ thuộc vào schemas và các interface/function của service.
+- Services phụ thuộc vào các hợp đồng parser và các tiện ích xử lý.
+- Các parser định dạng file không được import FastAPI hoặc phụ thuộc vào các đối tượng HTTP request.
+- Schemas mô tả dữ liệu API; chúng không được chứa các thuật toán phân tích cú pháp file.
+- Cấu hình Core và ánh xạ lỗi nên được giữ nhỏ gọn và tập trung.
+- Tests có thể phụ thuộc vào các module mà chúng kiểm thử; các module production không được import code test.
 
-## 5. Request lifecycle
+## 5. Vòng đời request
 
-1. Receive an upload through the versioned endpoint.
-2. Check declared size, extension, and actual file signature/content.
-3. Reject unsupported or invalid content before invoking a parser.
-4. Select the PDF or DOCX parser.
-5. Extract text and format-specific metadata.
-6. Normalize text using a deterministic, documented policy.
-7. Calculate basic statistics.
-8. Validate and serialize a response schema.
-9. Return a success response or a stable error envelope.
+1. Nhận upload thông qua endpoint được đánh version.
+2. Kiểm tra kích thước đã khai báo, phần mở rộng, và chữ ký/nội dung file thực tế.
+3. Từ chối nội dung không được hỗ trợ hoặc không hợp lệ trước khi gọi parser.
+4. Chọn parser PDF hoặc DOCX.
+5. Trích xuất văn bản và metadata đặc thù của định dạng.
+6. Chuẩn hóa văn bản theo một chính sách xác định, có tài liệu.
+7. Tính toán các thống kê cơ bản.
+8. Validate và serialize một response schema.
+9. Trả về response thành công hoặc một error envelope ổn định.
 
-## 6. ASP.NET Core integration
+## 6. Tích hợp ASP.NET Core
 
 ```text
 React (optional)
@@ -81,16 +81,16 @@ DocuExtract
   - return extracted text + metadata
 ```
 
-The .NET Application layer should depend on an abstraction such as `IDocumentExtractor`. The Infrastructure layer should implement that abstraction with a typed `HttpClient`. Pass cancellation through, set explicit timeouts, and map downstream service failures into the host application's error model.
+Tầng Application của .NET nên phụ thuộc vào một abstraction như `IDocumentExtractor`. Tầng Infrastructure nên triển khai abstraction đó bằng một `HttpClient` được định kiểu. Truyền cancellation token xuyên suốt, đặt timeout rõ ràng, và ánh xạ các lỗi từ service downstream vào mô hình lỗi của ứng dụng host.
 
-## 7. Deployment model
+## 7. Mô hình triển khai
 
-- Local development: run FastAPI with Uvicorn and reload enabled.
-- Containerized development: build one DocuExtract image and expose the API on an internal Docker network.
-- Production: deploy independently from the ASP.NET Core API; keep it private to trusted callers; configure resource limits, service authentication, timeouts, health checks, and logs.
+- Môi trường phát triển cục bộ: chạy FastAPI với Uvicorn và bật chế độ reload.
+- Môi trường phát triển container hóa: build một image DocuExtract và expose API trên mạng Docker nội bộ.
+- Production: triển khai độc lập với ASP.NET Core API; giữ private chỉ cho các caller tin cậy; cấu hình giới hạn tài nguyên, xác thực service, timeout, health check, và log.
 
-Do not add an API gateway, Kubernetes, Redis, or a message broker for the first milestone.
+Không thêm API gateway, Kubernetes, Redis, hoặc message broker cho milestone đầu tiên.
 
-## 8. Scaling decision
+## 8. Quyết định scaling
 
-Start synchronous. Measure document size, latency, CPU, memory, and request concurrency first. Only introduce a background job/queue when extraction duration, reliability requirements, or throughput makes synchronous request handling unsuitable. If that happens, create an ADR that compares the alternatives.
+Bắt đầu đồng bộ. Đo kích thước tài liệu, độ trễ, CPU, bộ nhớ, và đồng thời request trước. Chỉ giới thiệu background job/queue khi thời gian trích xuất, yêu cầu độ tin cậy, hoặc thông lượng khiến việc xử lý request đồng bộ không phù hợp. Nếu điều đó xảy ra, hãy tạo một ADR so sánh các phương án.

@@ -1,15 +1,15 @@
 ---
 trigger: model_decision
-description: Apply when handling uploaded files, document contents, secrets, logging, configuration, network exposure, or security-sensitive error paths.
+description: Áp dụng khi xử lý các file tải lên, nội dung tài liệu, secrets, logging, cấu hình, network exposure, hoặc các error paths nhạy cảm về bảo mật.
 ---
 
-# Security Rules
+# Quy Tắc Bảo Mật
 
-- Treat uploaded bytes, filenames, MIME types, and document contents as untrusted.
-- Enforce a configurable file-size limit before unbounded reads. Validate extension and actual content/signature; do not trust client headers alone.
-- Never use the uploaded filename as a filesystem path. Use server-generated temporary names and guaranteed cleanup if disk is required.
-- Do not log document text, file bytes, credentials, tokens, or raw multipart bodies.
-- Return safe, stable error messages; keep diagnostic details in protected server logs.
-- Avoid unrestricted file types, decompression bombs, unbounded parsing, and uncontrolled response sizes.
-- Do not claim OCR support for scanned documents unless an OCR implementation and tests exist.
-- Never commit secrets or real `.env` values. Production exposure requires service-to-service authentication and network controls.
+- Coi uploaded bytes, filenames, MIME types, và document contents là không đáng tin cậy.
+- Thực thi giới hạn kích thước file có thể cấu hình trước khi đọc không giới hạn. Xác thực extension và nội dung/signature thực tế; không tin tưởng client headers một mình.
+- Không bao giờ sử dụng uploaded filename làm filesystem path. Sử dụng server-generated temporary names và đảm bảo cleanup nếu cần dùng đến disk.
+- Không log document text, file bytes, credentials, tokens, hoặc raw multipart bodies.
+- Trả về các error message an toàn, ổn định; giữ các chi tiết chẩn đoán trong protected server logs.
+- Tránh các loại file không bị giới hạn, decompression bombs, unbounded parsing, và uncontrolled response sizes.
+- Không tuyên bố hỗ trợ OCR cho scanned documents trừ khi có OCR implementation và tests tồn tại.
+- Không bao giờ commit secrets hoặc các giá trị `.env` thực. Việc tiếp xúc production yêu cầu service-to-service authentication và network controls.

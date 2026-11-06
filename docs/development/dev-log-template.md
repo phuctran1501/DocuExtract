@@ -1,25 +1,25 @@
-# Dev Log: [Feature / Technical Topic]
+# Dev Log: [Tính năng / Chủ đề Kỹ thuật]
 
-- **Date:** YYYY-MM-DD
-- **Related issue/PR:** [Link]
-- **Files:** [Main files]
+- **Ngày:** YYYY-MM-DD
+- **Issue/PR liên quan:** [Link]
+- **Files:** [Các file chính]
 
-## What was built
-Describe the observable behavior and main modules changed.
+## Những gì đã xây dựng
+Mô tả hành vi có thể quan sát được và các module chính đã thay đổi.
 
-## Why this design
-Explain the key decision and why simpler alternatives were or were not sufficient.
+## Lý do chọn thiết kế này
+Giải thích quyết định chính và lý do tại sao các phương án đơn giản hơn đã hoặc chưa đủ đáp ứng.
 
-## How it works
-Describe the request/data flow in a few steps.
+## Cách hoạt động
+Mô tả luồng request/dữ liệu qua vài bước.
 
-## Gotchas
-Record edge cases, debugging discoveries, library behavior, or operational notes.
+## Những điều cần lưu ý (Gotchas)
+Ghi lại các trường hợp biên, phát hiện khi debug, hành vi của thư viện, hoặc ghi chú vận hành.
 
-## Tests and evidence
-List exact commands and results. Do not write “passed” without running them.
+## Kiểm thử và bằng chứng
+Liệt kê các lệnh chính xác và kết quả. Không viết "passed" nếu chưa chạy thực tế.
 
-## Interview / learning talking points
-- Concept learned:
-- Trade-off:
-- How to explain the design:
+## Điểm phỏng vấn / học tập
+- Khái niệm đã học:
+- Đánh đổi (Trade-off):
+- Cách giải thích thiết kế:

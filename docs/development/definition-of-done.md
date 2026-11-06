@@ -1,42 +1,42 @@
-# Definition of Done
+# Định Nghĩa Hoàn Thành (Definition of Done)
 
-A feature is done only when the applicable items below are satisfied.
+Một tính năng được coi là hoàn thành chỉ khi tất cả các mục áp dụng dưới đây được thỏa mãn.
 
-## Requirements
-- [ ] User story/problem and acceptance criteria are clear.
-- [ ] Scope and non-goals are explicit.
-- [ ] Existing behavior and relevant code were inspected.
+## Yêu cầu
+- [ ] User story/vấn đề và tiêu chí chấp nhận đã rõ ràng.
+- [ ] Phạm vi và những gì nằm ngoài phạm vi đã được xác định rõ.
+- [ ] Hành vi hiện tại và code liên quan đã được kiểm tra.
 
-## Implementation
-- [ ] Change follows the approved plan.
-- [ ] Route handlers remain thin; parsing logic is outside HTTP routes.
-- [ ] Types and Pydantic schemas are used at service/API boundaries.
-- [ ] No speculative dependencies or unrelated refactors were added.
-- [ ] Error cases are intentional and machine-readable.
+## Triển khai
+- [ ] Thay đổi tuân theo kế hoạch đã được phê duyệt.
+- [ ] Route handler giữ ở mức mỏng; logic phân tích cú pháp nằm ngoài HTTP route.
+- [ ] Type và Pydantic schema được sử dụng tại ranh giới service/API.
+- [ ] Không thêm dependency suy đoán hoặc refactor không liên quan.
+- [ ] Các trường hợp lỗi có chủ đích và có thể đọc được bởi máy.
 
-## Security
-- [ ] Upload size and supported content are validated.
-- [ ] Client filename/MIME type is not blindly trusted.
-- [ ] No secrets or document contents are written to logs.
-- [ ] No internal stack trace/path is exposed to clients.
-- [ ] Temporary files/resources are cleaned up if used.
+## Bảo mật
+- [ ] Kích thước upload và nội dung được hỗ trợ đã được xác thực.
+- [ ] Tên file/MIME type do client cung cấp không được tin tưởng mù quáng.
+- [ ] Không có secret hoặc nội dung tài liệu được ghi vào log.
+- [ ] Không để lộ stack trace/đường dẫn nội bộ ra phía client.
+- [ ] File/resource tạm thời được dọn sạch nếu có sử dụng.
 
-## Tests and verification
-- [ ] Unit tests cover changed processing logic.
-- [ ] API tests cover relevant status codes and response schemas.
-- [ ] Edge and failure cases are covered.
-- [ ] Relevant pytest command passes.
-- [ ] Ruff lint/format checks pass when configured.
-- [ ] Any test not run is explicitly disclosed.
+## Kiểm thử và xác minh
+- [ ] Unit test bao phủ logic xử lý đã thay đổi.
+- [ ] API test bao phủ các status code và response schema liên quan.
+- [ ] Các trường hợp biên và trường hợp lỗi được bao phủ.
+- [ ] Lệnh pytest liên quan chạy thành công.
+- [ ] Kiểm tra lint/format của Ruff thành công khi đã cấu hình.
+- [ ] Bất kỳ test nào không chạy phải được công bố rõ ràng.
 
-## Documentation
-- [ ] API contract and OpenAPI behavior agree.
-- [ ] Setup/configuration docs are updated when needed.
-- [ ] Roadmap/requirements/ADR are updated if scope or architecture changed.
-- [ ] A learning/dev log is added when the change introduces an important concept.
+## Tài liệu
+- [ ] API contract và hành vi OpenAPI nhất quán với nhau.
+- [ ] Tài liệu setup/cấu hình được cập nhật khi cần.
+- [ ] Roadmap/requirements/ADR được cập nhật nếu phạm vi hoặc kiến trúc thay đổi.
+- [ ] Thêm learning/dev log khi thay đổi giới thiệu một khái niệm quan trọng.
 
-## Final handoff
-- [ ] Summary names changed files and behavior.
-- [ ] Test commands and actual outcomes are reported.
-- [ ] Limitations and remaining risks are disclosed.
-- [ ] The owner can run or verify the feature using the instructions provided.
+## Bàn giao cuối cùng
+- [ ] Tóm tắt nêu rõ các file đã thay đổi và hành vi mới.
+- [ ] Lệnh kiểm thử và kết quả thực tế được báo cáo.
+- [ ] Các hạn chế và rủi ro còn lại được công bố.
+- [ ] Người dùng có thể chạy hoặc xác minh tính năng bằng hướng dẫn được cung cấp.

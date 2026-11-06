@@ -1,63 +1,63 @@
 # Gemini + Antigravity Prompt Playbook
 
-Use one bounded task per prompt. Let the repository instructions and skills carry the repeated rules; prompts should describe the desired outcome and constraints.
+Dùng một nhiệm vụ giới hạn rõ ràng cho mỗi prompt. Để các instruction trong repository và các skill chứa các quy tắc lặp lại; prompt chỉ cần mô tả kết quả mong muốn và các ràng buộc.
 
-## 1. First conversation in a new workspace
-
-```text
-Read AGENTS.md and the documentation map in README.md. Inspect the complete repository tree, current Git status, Python project configuration, and existing tests. Do not modify any files yet. Report:
-1. What already exists and what is missing.
-2. Whether the implementation matches the product and architecture documents.
-3. The smallest useful first milestone.
-4. Risks or conflicting assumptions.
-Do not invent code or claim commands were run unless they were actually run.
-```
-
-## 2. Plan a feature
+## 1. Cuộc hội thoại đầu tiên trong workspace mới
 
 ```text
-Use the plan-feature skill. I want to implement: [describe one outcome].
-Inspect the current implementation first. Read the relevant requirements and API contract. Produce a plan with scope/non-goals, files, API changes, ordered steps, tests, security risks, and documentation updates. Do not change source code yet.
+Đọc AGENTS.md và bản đồ tài liệu trong README.md. Kiểm tra toàn bộ cây thư mục repository, trạng thái Git hiện tại, cấu hình project Python, và các test hiện có. Chưa sửa đổi bất kỳ file nào. Báo cáo:
+1. Những gì đã có và những gì còn thiếu.
+2. Liệu implementation có khớp với tài liệu product và architecture không.
+3. Milestone đầu tiên nhỏ nhất và hữu ích nhất.
+4. Các rủi ro hoặc giả định mâu thuẫn.
+Không tự bịa code hoặc khẳng định đã chạy lệnh nào đó nếu chưa thực sự chạy.
 ```
 
-## 3. Implement an approved plan
+## 2. Lên kế hoạch cho một feature
 
 ```text
-Use the implement-feature skill. Implement the approved plan: [path to plan or pasted plan].
-Keep the diff focused, add tests for success and failure cases, update the API contract if behavior changes, and run the relevant checks. Stop and report if the plan conflicts with the repository or requires a material architectural decision.
+Dùng skill plan-feature. Tôi muốn implement: [mô tả một kết quả cụ thể].
+Kiểm tra implementation hiện tại trước. Đọc các requirements và API contract liên quan. Tạo một plan với scope/non-goals, files, API changes, các bước theo thứ tự, tests, security risks, và documentation updates. Chưa thay đổi source code.
 ```
 
-## 4. Debug a failure
+## 3. Implement một plan đã được phê duyệt
 
 ```text
-Reproduce and diagnose this failure before changing code: [error, command, steps].
-Trace the request/data flow, identify the most likely root cause, and distinguish evidence from hypotheses. Propose the smallest safe fix and the regression test. Do not suppress the exception or weaken tests to make the command green.
+Dùng skill implement-feature. Implement plan đã phê duyệt: [đường dẫn đến plan hoặc dán nội dung plan].
+Giữ diff tập trung, thêm tests cho cả trường hợp thành công và thất bại, cập nhật API contract nếu hành vi thay đổi, và chạy các kiểm tra liên quan. Dừng lại và báo cáo nếu plan mâu thuẫn với repository hoặc yêu cầu một quyết định kiến trúc quan trọng.
 ```
 
-## 5. Review before accepting a change
+## 4. Debug một lỗi
 
 ```text
-Use the review-change skill. Review the current Git diff as a senior Python backend reviewer. Prioritize correctness, API compatibility, upload security, async/blocking behavior, error handling, tests, and unintended scope. Report findings by severity with file/line references. Do not edit files unless I ask you to fix the findings.
+Tái hiện và chẩn đoán lỗi này trước khi thay đổi code: [error, command, steps].
+Truy vết luồng request/data, xác định nguyên nhân gốc rễ có khả năng nhất, và phân biệt bằng chứng với giả thuyết. Đề xuất bản fix nhỏ nhất và an toàn nhất cùng regression test. Không được suppress exception hoặc làm yếu tests chỉ để lệnh chạy xanh.
 ```
 
-## 6. Prepare ASP.NET Core integration
+## 5. Review trước khi chấp nhận một thay đổi
 
 ```text
-Use the integrate-aspnet skill. Based on docs/architecture/api-contract.md, design the .NET integration boundary for an ASP.NET Core Clean Architecture application. Keep the Application layer independent of HTTP transport and put the typed HttpClient adapter in Infrastructure. Include timeout, CancellationToken, correlation ID, response mapping, and downstream failure handling. Do not add .NET source files to this repository unless I explicitly request it.
+Dùng skill review-change. Review Git diff hiện tại với vai trò senior Python backend reviewer. Ưu tiên correctness, API compatibility, upload security, async/blocking behavior, error handling, tests, và phạm vi ngoài ý muốn. Báo cáo kết quả theo mức độ nghiêm trọng kèm tham chiếu file/dòng. Không sửa file trừ khi tôi yêu cầu sửa các phát hiện đó.
 ```
 
-## 7. Ask for a learning explanation
+## 6. Chuẩn bị tích hợp ASP.NET Core
 
 ```text
-Explain the implementation in Vietnamese as if I know C#/.NET but am new to Python. Compare the relevant Python/FastAPI concepts with familiar C#/.NET concepts. Explain the request flow, important trade-offs, and what I should inspect or test myself. Do not rewrite the code just to demonstrate another style.
+Dùng skill integrate-aspnet. Dựa trên docs/architecture/api-contract.md, thiết kế .NET integration boundary cho một ứng dụng ASP.NET Core Clean Architecture. Giữ Application layer độc lập với HTTP transport và đặt typed HttpClient adapter trong Infrastructure. Bao gồm timeout, CancellationToken, correlation ID, response mapping, và xử lý downstream failure. Không thêm .NET source files vào repository này trừ khi tôi yêu cầu rõ ràng.
 ```
 
-## 8. Useful operating pattern
+## 7. Yêu cầu giải thích để học
 
-1. Ask for repository reconnaissance.
-2. Ask for a plan for medium/large work.
-3. Approve or revise the plan.
-4. Implement one vertical slice.
-5. Review the diff and test results.
-6. Update docs/dev log.
-7. Commit only after the owner accepts the result.
+```text
+Giải thích implementation bằng tiếng Việt như thể tôi biết C#/.NET nhưng còn mới với Python. So sánh các khái niệm Python/FastAPI liên quan với các khái niệm C#/.NET quen thuộc. Giải thích luồng request, các trade-off quan trọng, và những gì tôi nên tự kiểm tra hoặc test. Không viết lại code chỉ để minh họa một style khác.
+```
+
+## 8. Quy trình vận hành hữu ích
+
+1. Yêu cầu reconnaissance repository.
+2. Yêu cầu plan cho công việc medium/large.
+3. Phê duyệt hoặc sửa đổi plan.
+4. Implement một vertical slice.
+5. Review diff và kết quả test.
+6. Cập nhật docs/dev log.
+7. Commit chỉ sau khi owner chấp nhận kết quả.

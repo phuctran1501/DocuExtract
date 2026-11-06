@@ -1,41 +1,41 @@
 # DocuExtract
 
-> A learning-first document-processing microservice built with Python and FastAPI, designed to integrate with ASP.NET Core applications.
+> Một microservice xử lý tài liệu ưu tiên học tập, được xây dựng bằng Python và FastAPI, thiết kế để tích hợp với các ứng dụng ASP.NET Core.
 
-## 1. Project overview
+## 1. Tổng quan dự án
 
-DocuExtract receives supported documents, extracts their text, performs lightweight normalization/analysis, and returns a predictable JSON response. It is intended to be a specialized service behind an ASP.NET Core API—not a replacement for the main business backend.
+DocuExtract nhận các tài liệu được hỗ trợ, trích xuất văn bản, thực hiện chuẩn hóa/phân tích nhẹ, và trả về phản hồi JSON ổn định. Dịch vụ này được thiết kế là một service chuyên biệt đứng sau ASP.NET Core API — không phải là sự thay thế cho backend nghiệp vụ chính.
 
-**Initial supported formats:** PDF and DOCX.
+**Định dạng được hỗ trợ ban đầu:** PDF và DOCX.
 
-**MVP principle:** start stateless and synchronous. Do not add a database, Redis, RabbitMQ, Celery, OCR, or LLM until a real requirement justifies it.
+**Nguyên tắc MVP:** bắt đầu stateless và đồng bộ. Không thêm database, Redis, RabbitMQ, Celery, OCR, hay LLM cho đến khi có yêu cầu thực sự biện hộ cho điều đó.
 
-## 2. Goals
+## 2. Mục tiêu
 
-- Learn Python backend development through a real, bounded service.
-- Build REST APIs with FastAPI and Pydantic.
-- Handle uploaded files safely.
-- Separate HTTP routes from parsing and processing logic.
-- Produce a stable API contract that an ASP.NET Core typed client can consume.
-- Practice automated testing, Docker, and service-to-service failure handling.
+- Học phát triển backend Python thông qua một service thực tế, có phạm vi rõ ràng.
+- Xây dựng REST API với FastAPI và Pydantic.
+- Xử lý file upload một cách an toàn.
+- Tách biệt các HTTP route khỏi logic phân tích và xử lý.
+- Tạo ra một API contract ổn định mà một typed client ASP.NET Core có thể sử dụng.
+- Thực hành kiểm thử tự động, Docker, và xử lý lỗi giữa các service.
 
-## 3. Initial technology baseline
+## 3. Nền tảng công nghệ ban đầu
 
-| Technology | Purpose |
+| Công nghệ | Mục đích |
 |---|---|
 | Python 3.12+ | Runtime |
 | FastAPI | REST API |
-| Pydantic | Request/response validation |
+| Pydantic | Xác thực request/response |
 | Uvicorn | ASGI server |
-| pypdf | PDF text extraction |
-| python-docx | DOCX text extraction |
-| pytest + HTTPX | Automated tests |
-| Ruff | Linting and formatting |
-| Docker | Container packaging in a later milestone |
+| pypdf | Trích xuất văn bản PDF |
+| python-docx | Trích xuất văn bản DOCX |
+| pytest + HTTPX | Kiểm thử tự động |
+| Ruff | Linting và định dạng code |
+| Docker | Đóng gói container ở milestone sau |
 
-The actual repository configuration takes precedence over this proposed baseline once implementation begins.
+Cấu hình repository thực tế sẽ được ưu tiên hơn so với nền tảng đề xuất này khi quá trình triển khai bắt đầu.
 
-## 4. Architecture at a glance
+## 4. Kiến trúc tổng quan
 
 ```text
 ASP.NET Core API
@@ -52,9 +52,9 @@ DocuExtract (FastAPI)
   Structured response
 ```
 
-ASP.NET Core remains responsible for identity, authorization, business workflows, and business-data persistence. DocuExtract is responsible for document extraction and document-oriented processing only.
+ASP.NET Core chịu trách nhiệm về identity, authorization, luồng nghiệp vụ, và lưu trữ dữ liệu nghiệp vụ. DocuExtract chịu trách nhiệm chỉ về trích xuất tài liệu và xử lý liên quan đến tài liệu.
 
-## 5. Repository structure
+## 5. Cấu trúc repository
 
 ```text
 DocuExtract/
@@ -81,32 +81,32 @@ DocuExtract/
 └── README.md
 ```
 
-The `app/` tree is the proposed MVP layout. Inspect and adapt to the actual project before creating or moving files.
+Cây thư mục `app/` là bố cục MVP được đề xuất. Hãy kiểm tra và điều chỉnh theo dự án thực tế trước khi tạo hoặc di chuyển file.
 
-## 6. Documentation map
+## 6. Bản đồ tài liệu
 
-| Document | Purpose |
+| Tài liệu | Mục đích |
 |---|---|
-| `AGENTS.md` | Persistent AI-agent instructions |
-| `docs/product/vision.md` | Product purpose and boundaries |
-| `docs/product/requirements.md` | Functional and non-functional requirements |
-| `docs/architecture/architecture.md` | Service architecture and dependencies |
-| `docs/architecture/api-contract.md` | HTTP endpoints and JSON contract |
-| `docs/architecture/decisions/` | Accepted architecture decisions |
-| `docs/development/roadmap.md` | Incremental implementation milestones |
-| `docs/development/definition-of-done.md` | Acceptance and quality checklist |
-| `docs/ai/prompt-playbook.md` | Practical prompts for Gemini in Antigravity |
+| `AGENTS.md` | Hướng dẫn thường trực cho AI agent |
+| `docs/product/vision.md` | Mục đích sản phẩm và phạm vi |
+| `docs/product/requirements.md` | Yêu cầu chức năng và phi chức năng |
+| `docs/architecture/architecture.md` | Kiến trúc service và các phụ thuộc |
+| `docs/architecture/api-contract.md` | Các HTTP endpoint và JSON contract |
+| `docs/architecture/decisions/` | Các quyết định kiến trúc đã được chấp thuận |
+| `docs/development/roadmap.md` | Các milestone triển khai theo từng bước |
+| `docs/development/definition-of-done.md` | Danh sách kiểm tra chấp nhận và chất lượng |
+| `docs/ai/prompt-playbook.md` | Các prompt thực tế dùng với Gemini in Antigravity |
 
-## 7. Getting started
+## 7. Bắt đầu
 
-The detailed local setup instructions will be maintained in [`docs/operations/development-setup.md`](docs/operations/development-setup.md). The project is still in its planning/scaffolding stage; do not assume application endpoints exist until they are implemented and tested.
+Hướng dẫn cài đặt cục bộ chi tiết sẽ được duy trì tại [`docs/operations/development-setup.md`](docs/operations/development-setup.md). Dự án vẫn đang trong giai đoạn lên kế hoạch/dàn dựng; không giả định rằng các endpoint ứng dụng đã tồn tại cho đến khi chúng được triển khai và kiểm thử.
 
-## 8. AI-assisted development
+## 8. Phát triển với sự hỗ trợ của AI
 
-This repository uses Antigravity's workspace instructions, rules, and skills:
+Repository này sử dụng các workspace instructions, rules, và skills của Antigravity:
 
-- `AGENTS.md` is the canonical always-on project guide.
-- `.agents/rules/` contains scoped constraints for Python, API contracts, security, and testing.
-- `.agents/skills/` contains repeatable procedures for planning, implementing, reviewing, and preparing ASP.NET integration.
+- `AGENTS.md` là hướng dẫn dự án luôn hoạt động và là nguồn tham chiếu chính.
+- `.agents/rules/` chứa các ràng buộc có phạm vi cho Python, API contract, bảo mật, và kiểm thử.
+- `.agents/skills/` chứa các quy trình có thể tái sử dụng cho việc lên kế hoạch, triển khai, review, và chuẩn bị tích hợp ASP.NET.
 
-Give the agent one bounded task at a time. Ask it to inspect and plan before it edits a medium/large feature. Review the diff and test evidence before accepting the result.
+Hãy giao cho agent một nhiệm vụ có phạm vi rõ ràng mỗi lần. Yêu cầu agent kiểm tra và lên kế hoạch trước khi chỉnh sửa tính năng vừa/lớn. Review diff và bằng chứng kiểm thử trước khi chấp nhận kết quả.

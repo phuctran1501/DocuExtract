@@ -1,17 +1,17 @@
 ---
 trigger: glob
 globs: "**/*.py, **/*_test.py"
-description: Python style, typing, FastAPI implementation, and maintainability conventions.
+description: Quy ước về Python style, typing, cài đặt FastAPI, và khả năng bảo trì.
 ---
 
-# Python Conventions
+# Quy Ước Python
 
-- Follow the repository's Python version and package manager; do not silently change either.
-- Use type hints for public functions and module boundaries. Prefer explicit return types.
-- Use Pydantic models for structured API input/output; keep parser internals independent of FastAPI.
-- Use `async def` only when awaiting async I/O or async dependencies. Do not treat CPU-bound parsing as asynchronous automatically.
-- Keep functions focused and side effects visible. Avoid mutable module globals and import-time work.
-- Catch specific expected exceptions. Never swallow exceptions or return success-shaped fallback data after a failure.
-- Prefer standard-library features and existing dependencies. Explain any new dependency.
-- Keep route handlers thin; put document parsing in `app/parsers/` and processing orchestration in `app/services/`.
-- Follow Ruff configuration if present. Do not reformat unrelated files.
+- Tuân theo phiên bản Python và package manager của repository; không được thay đổi một trong hai một cách thầm lặng.
+- Sử dụng type hints cho các hàm public và ranh giới module. Ưu tiên các return type rõ ràng.
+- Sử dụng Pydantic models cho structured API input/output; giữ cho parser internals độc lập với FastAPI.
+- Chỉ sử dụng `async def` khi await async I/O hoặc async dependencies. Không tự động coi CPU-bound parsing là bất đồng bộ.
+- Giữ cho các hàm tập trung và side effects hiển thị. Tránh mutable module globals và import-time work.
+- Bắt các exception cụ thể được mong đợi. Không bao giờ nuốt exception hoặc trả về dữ liệu fallback có dạng thành công sau một lần thất bại.
+- Ưu tiên các tính năng standard-library và các dependencies hiện có. Giải thích bất kỳ dependency mới nào.
+- Giữ cho route handlers gọn nhẹ; đặt document parsing trong `app/parsers/` và processing orchestration trong `app/services/`.
+- Tuân theo cấu hình Ruff nếu có. Không reformat các file không liên quan.

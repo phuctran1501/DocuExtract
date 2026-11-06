@@ -1,12 +1,12 @@
 # DocuExtract Vibe Coding Kit
 
-This bundle provides project instructions and documentation templates for a Python/FastAPI document-processing service used from Antigravity.
+Bộ tài liệu này cung cấp các hướng dẫn dự án và mẫu tài liệu cho một dịch vụ xử lý tài liệu Python/FastAPI được sử dụng từ Antigravity.
 
-- Start with `AGENTS.md`.
-- `GEMINI.md` is a small compatibility entry point.
-- `.agents/rules/` contains scoped rules.
-- `.agents/skills/` contains reusable procedures.
-- `docs/` contains product, architecture, API, roadmap, setup, and prompt references.
-- `.github/` contains issue and pull-request templates.
+- Bắt đầu với `AGENTS.md`.
+- `GEMINI.md` là một điểm vào tương thích nhỏ gọn.
+- `.agents/rules/` chứa các quy tắc có phạm vi.
+- `.agents/skills/` chứa các quy trình có thể tái sử dụng.
+- `docs/` chứa các tài liệu về sản phẩm, kiến trúc, API, roadmap, cài đặt, và tham chiếu prompt.
+- `.github/` chứa các mẫu issue và pull-request.
 
-The docs describe a proposed MVP baseline. Inspect the actual repository and update assumptions before implementation.
+Các tài liệu mô tả một nền tảng MVP được đề xuất. Hãy kiểm tra repository thực tế và cập nhật các giả định trước khi triển khai.

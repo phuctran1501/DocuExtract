@@ -1,24 +1,24 @@
 ---
 name: review-change
-description: Reviews the current DocuExtract Git diff for correctness, security, API compatibility, test quality, and maintainability. Use before accepting or merging changes.
+description: Đánh giá Git diff hiện tại của DocuExtract về tính đúng đắn, bảo mật, tương thích API, chất lượng kiểm thử, và khả năng bảo trì. Sử dụng trước khi chấp nhận hoặc merge các thay đổi.
 ---
 
-# Review Change
+# Đánh Giá Thay Đổi
 
-## Procedure
-1. Read `AGENTS.md`, relevant requirements/API contract/ADRs, and Definition of Done.
-2. Inspect `git status` and the complete diff, including untracked files when available.
-3. Trace changed code through callers, schemas, parsers, and tests.
-4. Look for correctness defects, edge cases, unsafe file handling, blocking work in async paths, resource leaks, broad exception handling, unstable API responses, and missing tests.
-5. Check dependency changes, configuration defaults, logs, secret exposure, and documentation drift.
-6. Run focused verification only when review scope and environment permit; distinguish static findings from executed checks.
+## Quy trình
+1. Đọc `AGENTS.md`, requirements/API contract/ADR liên quan, và Definition of Done.
+2. Kiểm tra `git status` và diff đầy đủ, bao gồm các file chưa được theo dõi khi có thể.
+3. Truy vết code đã thay đổi qua các caller, schema, parser, và kiểm thử.
+4. Tìm kiếm: lỗi đúng đắn, edge case, xử lý file không an toàn, công việc blocking trong async path, rò rỉ tài nguyên, xử lý exception quá rộng, API response không ổn định, và kiểm thử còn thiếu.
+5. Kiểm tra thay đổi dependency, giá trị mặc định cấu hình, log, lộ secret, và drift tài liệu.
+6. Chỉ chạy xác minh tập trung khi phạm vi đánh giá và môi trường cho phép; phân biệt phát hiện tĩnh với kiểm tra đã thực thi.
 
-## Output format
-List findings first, ordered by severity:
+## Định dạng đầu ra
+Liệt kê các phát hiện trước, theo thứ tự mức độ nghiêm trọng:
 - **Critical / High / Medium / Low**
-- File and line reference.
-- Concrete failure scenario.
-- Why it matters.
-- Recommended fix.
+- Tham chiếu file và dòng.
+- Tình huống lỗi cụ thể.
+- Lý do quan trọng.
+- Khuyến nghị sửa chữa.
 
-Then report test/command evidence, non-blocking observations, and any areas that could not be verified. If no findings are identified, say so and state what was reviewed. Do not modify files unless the user explicitly asks for fixes.
+Sau đó báo cáo bằng chứng kiểm thử/lệnh, nhận xét không cản trở, và các khu vực không thể xác minh. Nếu không xác định được phát hiện nào, hãy nói rõ và nêu những gì đã được đánh giá. Không sửa đổi file trừ khi người dùng yêu cầu rõ ràng.

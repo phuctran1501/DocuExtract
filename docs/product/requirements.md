@@ -1,83 +1,89 @@
-# DocuExtract — Requirements
+# DocuExtract — Yêu Cầu
 
-**Status:** Proposed baseline for the first MVP. Update this document when product scope changes.
+**Trạng thái:** Baseline đề xuất cho MVP đầu tiên. Cập nhật tài liệu này khi phạm vi sản phẩm thay đổi.
 
-## 1. Actors
+## 1. Các tác nhân
 
-- **API Consumer:** an ASP.NET Core API or another trusted internal service that sends a document for extraction.
-- **Operator/Developer:** runs, configures, observes, and tests DocuExtract.
+- **API Consumer:** một ASP.NET Core API hoặc dịch vụ nội bộ đáng tin cậy khác gửi tài liệu để trích xuất.
+- **Operator/Developer:** chạy, cấu hình, quan sát và kiểm thử DocuExtract.
 
-There is no end-user account or public self-service UI in the MVP.
+Không có tài khoản người dùng cuối hay giao diện tự phục vụ công khai trong MVP.
 
-## 2. Functional requirements
+## 2. Yêu cầu chức năng
 
-| ID | Requirement | Priority |
-|---|---|---|
-| FR-01 | The service exposes a health endpoint. | Must |
-| FR-02 | The service accepts PDF files and extracts text. | Must |
-| FR-03 | The service accepts DOCX files and extracts text. | Must |
-| FR-04 | The service returns filename metadata, detected media type, byte size, extracted text, character count, and word count. | Must |
-| FR-05 | The service rejects unsupported file types with a stable error code. | Must |
-| FR-06 | The service rejects files exceeding a configurable size limit. | Must |
-| FR-07 | The service handles malformed, empty, and encrypted documents without crashing. | Must |
-| FR-08 | The service normalizes extracted text using documented deterministic rules. | Should |
-| FR-09 | The service reports when a document contains no extractable text; it does not pretend to perform OCR. | Must |
-| FR-10 | The service exposes an optional endpoint for basic text statistics. | Could |
+| ID    | Yêu cầu                                                                                                              | Mức độ ưu tiên |
+| ----- | -------------------------------------------------------------------------------------------------------------------- | -------------- |
+| FR-01 | Service cung cấp một health endpoint.                                                                                | Must           |
+| FR-02 | Service chấp nhận file PDF và trích xuất văn bản.                                                                    | Must           |
+| FR-03 | Service chấp nhận file DOCX và trích xuất văn bản.                                                                   | Must           |
+| FR-04 | Service trả về metadata tên file, loại media được phát hiện, kích thước byte, văn bản trích xuất, số ký tự và số từ. | Must           |
+| FR-05 | Service từ chối các loại file không được hỗ trợ với một mã lỗi ổn định.                                              | Must           |
+| FR-06 | Service từ chối các file vượt quá giới hạn kích thước có thể cấu hình.                                               | Must           |
+| FR-07 | Service xử lý các tài liệu bị lỗi, rỗng và được mã hóa mà không bị crash.                                            | Must           |
+| FR-08 | Service chuẩn hóa văn bản trích xuất theo các quy tắc xác định được tài liệu hóa.                                    | Should         |
+| FR-09 | Service báo cáo khi tài liệu không có văn bản có thể trích xuất; không giả vờ thực hiện OCR.                         | Must           |
+| FR-10 | Service cung cấp một endpoint tùy chọn cho thống kê văn bản cơ bản.                                                  | Could          |
 
-## 3. Non-functional requirements
+## 3. Yêu cầu phi chức năng
 
-### NFR-01 — Security
-- Uploaded bytes and document contents are untrusted.
-- Enforce maximum size and supported formats.
-- Do not trust client MIME type or filename as proof of file type.
-- Never log extracted text or secrets.
-- Do not return stack traces or internal paths.
+### NFR-01 — Bảo mật
 
-### NFR-02 — Reliability
-- A bad document must fail as a request-level error, not crash the service process.
-- Every expected failure must map to a documented error code.
-- Cleanup temporary resources on both success and failure if temporary files are ever used.
+- Các byte được tải lên và nội dung tài liệu là input không đáng tin cậy.
+- Thực thi kích thước tối đa và các định dạng được hỗ trợ.
+- Không tin tưởng MIME type hoặc tên file do client cung cấp là bằng chứng về loại file.
+- Không bao giờ ghi log văn bản trích xuất hoặc secret.
+- Không trả về stack trace hoặc đường dẫn nội bộ.
 
-### NFR-03 — Performance
-- The MVP targets small documents within the configured upload limit.
-- Establish a baseline before adding concurrency, queues, or a worker system.
-- Avoid unbounded reads and response sizes.
+### NFR-02 — Độ tin cậy
 
-### NFR-04 — Maintainability
-- Separate HTTP routes, schemas, services, and format-specific parsers.
-- Use type hints and explicit schemas.
-- Test parsers independently from HTTP routes.
+- Một tài liệu lỗi phải thất bại dưới dạng lỗi ở cấp độ request, không làm crash tiến trình service.
+- Mọi lỗi mong đợi đều phải được ánh xạ tới một mã lỗi được tài liệu hóa.
+- Dọn dẹp tài nguyên tạm thời khi thành công và thất bại nếu file tạm thời được sử dụng.
 
-### NFR-05 — Interoperability
-- Use versioned REST endpoints and JSON responses.
-- Keep API field names and error codes stable.
-- Document multipart field names, content types, size limits, and status codes.
+### NFR-03 — Hiệu năng
 
-### NFR-06 — Operability
-- Configuration comes from environment variables/settings.
-- Provide health visibility and structured logs.
-- Provide reproducible local setup and Docker instructions when containerization is implemented.
+- MVP nhắm tới các tài liệu nhỏ trong giới hạn upload đã cấu hình.
+- Thiết lập baseline trước khi thêm concurrency, queue hoặc hệ thống worker.
+- Tránh đọc không giới hạn và kích thước response không giới hạn.
 
-## 4. Initial limits and policies
+### NFR-04 — Khả năng bảo trì
 
-| Setting | Initial policy |
-|---|---|
-| Upload limit | 10 MiB default; configurable |
-| Formats | `.pdf`, `.docx` only |
-| OCR | Not supported in MVP |
-| Persistence | No persistent upload storage |
-| API version | `/api/v1` |
-| Health | `/health` |
-| Auth | Trusted internal network for local MVP; production service-to-service auth must be designed before external exposure |
+- Tách biệt HTTP route, schema, service và parser theo định dạng cụ thể.
+- Sử dụng type hint và schema rõ ràng.
+- Test parser độc lập với HTTP route.
 
-These values are defaults for implementation planning. Any production deployment must revisit upload size, access control, rate limits, timeouts, and resource limits.
+### NFR-05 — Khả năng tương tác
 
-## 5. Acceptance criteria for the first extraction slice
+- Sử dụng REST endpoint có phiên bản và response JSON.
+- Giữ ổn định tên trường API và mã lỗi.
+- Tài liệu hóa tên trường multipart, content type, giới hạn kích thước và status code.
 
-- A valid text-based PDF returns non-empty extracted text and correct metadata.
-- A valid DOCX returns paragraph/table text according to documented extraction rules.
-- A renamed or unsupported file is rejected when its actual content does not match an allowed format.
-- An oversized upload is rejected without reading an unlimited payload into memory.
-- A malformed, encrypted, or empty document returns a predictable error/warning.
-- Tests cover success and failure cases.
-- API documentation describes the actual response and error contract.
+### NFR-06 — Khả năng vận hành
+
+- Cấu hình đến từ biến môi trường/settings.
+- Cung cấp health visibility và structured log.
+- Cung cấp hướng dẫn cài đặt cục bộ có thể tái tạo và hướng dẫn Docker khi containerization được triển khai.
+
+## 4. Giới hạn và chính sách ban đầu
+
+| Cài đặt         | Chính sách ban đầu                                                                                                                   |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Giới hạn upload | Mặc định 10 MiB; có thể cấu hình                                                                                                     |
+| Định dạng       | Chỉ `.pdf`, `.docx`                                                                                                                  |
+| OCR             | Không được hỗ trợ trong MVP                                                                                                          |
+| Lưu trữ         | Không có lưu trữ upload lâu dài                                                                                                      |
+| Phiên bản API   | `/api/v1`                                                                                                                            |
+| Health          | `/health`                                                                                                                            |
+| Xác thực        | Mạng nội bộ đáng tin cậy cho MVP cục bộ; xác thực service-to-service cho production phải được thiết kế trước khi expose ra bên ngoài |
+
+Các giá trị này là mặc định cho việc lập kế hoạch triển khai. Bất kỳ triển khai production nào cũng phải xem xét lại giới hạn upload, kiểm soát truy cập, rate limit, timeout và giới hạn tài nguyên.
+
+## 5. Tiêu chí chấp nhận cho extraction slice đầu tiên
+
+- Một PDF có văn bản hợp lệ trả về văn bản trích xuất không rỗng và metadata đúng.
+- Một DOCX hợp lệ trả về văn bản đoạn văn/bảng theo các quy tắc trích xuất được tài liệu hóa.
+- Một file bị đổi tên hoặc không được hỗ trợ bị từ chối khi nội dung thực tế của nó không khớp với định dạng được phép.
+- Một upload quá kích thước bị từ chối mà không đọc payload không giới hạn vào bộ nhớ.
+- Một tài liệu bị lỗi, được mã hóa hoặc rỗng trả về lỗi/cảnh báo có thể dự đoán được.
+- Test bao phủ cả trường hợp thành công và thất bại.
+- Tài liệu API mô tả response thực tế và contract lỗi.

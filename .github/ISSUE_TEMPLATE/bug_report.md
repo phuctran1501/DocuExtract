@@ -1,34 +1,34 @@
 ---
 name: Bug report
-about: Report a reproducible defect in DocuExtract
+about: Báo cáo một lỗi có thể tái hiện trong DocuExtract
 title: "fix: "
 labels: bug
 assignees: ""
 ---
 
-## Describe the bug
-What happened?
+## Mô tả lỗi
+Điều gì đã xảy ra?
 
-## Expected behavior
-What should have happened?
+## Hành vi mong đợi
+Điều gì lẽ ra phải xảy ra?
 
-## Steps to reproduce
+## Các bước tái hiện
 1. ...
 2. ...
 3. ...
 
-## Input characteristics
-Do not attach private documents or secrets. Describe only safe metadata (format, approximate size, page count, whether the file is encrypted/scanned).
+## Đặc điểm đầu vào
+Không đính kèm tài liệu riêng tư hoặc secret. Chỉ mô tả metadata an toàn (định dạng, kích thước xấp xỉ, số trang, file có bị mã hóa/scan hay không).
 
-## Environment
+## Môi trường
 - OS:
 - Python version:
 - Package manager/version:
 - DocuExtract commit/branch:
 
-## Error output
-Paste the relevant sanitized traceback/log excerpt. Remove tokens, credentials, personal data, and extracted document text.
+## Kết quả lỗi
+Dán đoạn traceback/log đã được làm sạch. Xóa token, thông tin xác thực, dữ liệu cá nhân và nội dung văn bản đã trích xuất.
 
-## Verification
-- [ ] Reproduced locally
-- [ ] Added regression test
+## Xác minh
+- [ ] Đã tái hiện được lỗi trên máy local
+- [ ] Đã thêm regression test
