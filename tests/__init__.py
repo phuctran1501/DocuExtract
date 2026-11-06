@@ -1,0 +1,2 @@
+"""DocuExtract test suite."""
+

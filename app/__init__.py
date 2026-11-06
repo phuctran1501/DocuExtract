@@ -1,0 +1,2 @@
+"""DocuExtract - Document processing microservice."""
+

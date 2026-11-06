@@ -4,11 +4,11 @@ Lộ trình được sắp xếp để tạo ra một vertical slice hoạt đ�
 
 ## Phase 0 — Nền tảng repository
 
-- [ ] Khởi tạo Python project và package manager.
-- [ ] Tạo điểm vào ứng dụng FastAPI.
-- [ ] Thêm cài đặt/cấu hình và endpoint `/health`.
-- [ ] Thêm cấu hình Ruff và pytest.
-- [ ] Thêm hướng dẫn cài đặt cục bộ và các CI check ban đầu.
+- [x] Khởi tạo Python project và package manager.
+- [x] Tạo điểm vào ứng dụng FastAPI.
+- [x] Thêm cài đặt/cấu hình và endpoint `/health`.
+- [x] Thêm cấu hình Ruff và pytest.
+- [x] Thêm hướng dẫn cài đặt cục bộ và các CI check ban đầu.
 
 **Tiêu chí thoát:** ứng dụng khởi động được ở local; health endpoint và test của nó pass; cài đặt có thể tái tạo được.
 
