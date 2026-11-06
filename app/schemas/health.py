@@ -8,4 +8,3 @@ class HealthResponse(BaseModel):
 
     status: str = Field(default="ok", description="Service health status.")
     service: str = Field(default="docuextract", description="Service identifier.")
-

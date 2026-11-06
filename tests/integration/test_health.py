@@ -51,4 +51,3 @@ def test_not_found_returns_standard_error_envelope(client: TestClient) -> None:
     assert error["code"] == "NOT_FOUND"
     assert "Not Found" in error["message"]
     assert error["correlation_id"] == client_id
-

@@ -1,2 +1,1 @@
 """DocuExtract test suite."""
-

@@ -17,4 +17,3 @@ class ErrorResponse(BaseModel):
     """Standard error response envelope."""
 
     error: ErrorDetail
-
