@@ -1,6 +1,6 @@
 # Kế hoạch triển khai: Phase 0 — Nền tảng Repository (Repository Foundation)
 
-- **Trạng thái:** Đề xuất
+- **Trạng thái:** Hoàn thành
 - **Đặc tả liên quan:** `docs/product/requirements.md`, `docs/architecture/architecture.md`, `docs/architecture/api-contract.md`
 - **Issue liên quan:** Phase 0 trong `docs/development/roadmap.md`
 
