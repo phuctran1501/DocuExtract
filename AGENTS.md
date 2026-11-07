@@ -13,16 +13,18 @@ Chủ sở hữu dự án đang học Python và FastAPI đồng thời sử d�
 Trước khi triển khai bất cứ điều gì, hãy kiểm tra repository. Đừng cho rằng repository vẫn còn trống hoặc bộ starter kit này khớp chính xác với code hiện tại.
 
 Sử dụng thứ tự ưu tiên sau khi giải quyết các yêu cầu:
+
 1. Quyết định rõ ràng, gần đây nhất của người dùng.
 2. `docs/product/requirements.md` và đặc tả tính năng đã được phê duyệt.
 3. Các Bản ghi Quyết định Kiến trúc (ADR) đã được chấp nhận trong `docs/architecture/decisions/`.
 4. `docs/architecture/architecture.md` và `docs/architecture/api-contract.md`.
 5. Code triển khai và các test hiện có, sau khi kiểm tra xem chúng là chủ đích hay sự sai lệch vô tình.
-6. File này và các quy ước chung khác.
+6. File này và các quy ước chung khác trong `/docs/development/`.
 
 Nếu code và tài liệu không khớp nhau, hãy báo cáo sự sai lệch trước khi thực hiện thay đổi trên diện rộng. Không âm thầm viết lại các yêu cầu để phù hợp với mã nguồn hiện tại.
 
 Các giả định ban đầu về sản phẩm:
+
 - Python 3.12 trở lên; sử dụng phiên bản đã được ghim trong repository nếu có.
 - FastAPI, Pydantic, Uvicorn, pytest, và Ruff.
 - Trích xuất PDF và DOCX là các định dạng đầu tiên được hỗ trợ.
@@ -35,6 +37,7 @@ Các giả định ban đầu về sản phẩm:
 ## 3. Khảo sát repository bắt buộc (Mandatory repository reconnaissance)
 
 Khi bắt đầu một tác vụ có thể thay đổi codebase:
+
 1. Đọc file này, `README.md`, và các file liên quan trong thư mục `docs/`.
 2. Kiểm tra cây thư mục và các file thực tế liên quan đến tác vụ.
 3. Kiểm tra `pyproject.toml`, lockfile, ví dụ môi trường, file Docker, và cấu hình CI nếu có.
@@ -47,10 +50,12 @@ Không khẳng định rằng bạn đã kiểm tra file, chạy lệnh, hoặc 
 ## 4. Giao thức lập kế hoạch và triển khai (Planning and implementation protocol)
 
 Phân loại tác vụ trước khi hành động:
+
 - **Nhỏ (Small)**: sửa lỗi chính tả, chỉnh sửa tài liệu biệt lập, hoặc thay đổi nhỏ không ảnh hưởng đến contract/hành vi. Nêu ngắn gọn thay đổi dự kiến và tiến hành.
 - **Vừa/lớn (Medium/large)**: endpoint mới, parser mới, tính năng mới, thay đổi trên nhiều module, refactor, thay đổi dependency, thay đổi API contract, thay đổi bảo mật, thay đổi Docker/CI, hoặc quyết định kiến trúc. Sử dụng skill `plan-feature`, kiểm tra codebase, và trình bày kế hoạch triển khai cụ thể trước khi thay đổi mã nguồn. Chờ sự đồng ý của người dùng trừ khi người dùng đã hướng dẫn rõ ràng bạn lập kế hoạch và triển khai trong cùng một yêu cầu.
 
 Một kế hoạch triển khai phải bao gồm:
+
 - Các phát hiện về hiện trạng và các file liên quan.
 - Phạm vi (Scope) và những việc rõ ràng không làm (explicit non-goals).
 - Thiết kế đề xuất và các thay đổi về data/API contract.
@@ -60,6 +65,7 @@ Một kế hoạch triển khai phải bao gồm:
 - Các tài liệu bắt buộc phải cập nhật.
 
 Trong quá trình triển khai:
+
 - Bám sát kế hoạch đã được phê duyệt. Nếu bằng chứng mới đòi hỏi một sự sai lệch trọng yếu, hãy giải thích và cập nhật kế hoạch trước khi tiếp tục.
 - Thực hiện các thay đổi nhỏ, dễ review. Ưu tiên code đơn giản, dễ bảo trì hơn là các abstraction quá thông minh.
 - Không tạo các layer mang tính phỏng đoán, các generic framework hoặc abstraction cho các dịch vụ giả định trong tương lai.
@@ -70,6 +76,7 @@ Trong quá trình triển khai:
 ## 5. Ranh giới kiến trúc và mã nguồn (Architecture and code boundaries)
 
 Giữ các mối quan tâm về HTTP tách biệt khỏi logic xử lý tài liệu:
+
 - `app/main.py`: chỉ khởi tạo ứng dụng và đăng ký router.
 - `app/api/`: các HTTP route, parse request, gắn kết dependency (dependency wiring), và map response HTTP.
 - `app/schemas/`: các model Pydantic cho request/response và validation phía API.
@@ -100,6 +107,7 @@ Không thêm database, ORM, repository layer, message broker, worker framework, 
 ## 7. Bảo mật tải lên và xử lý tài liệu
 
 Coi mọi file tải lên và mọi trường bên trong nó là dữ liệu đầu vào không đáng tin cậy (untrusted input).
+
 - Thực thi giới hạn dung lượng tải lên tối đa có thể cấu hình trước khi đọc một lượng nội dung không giới hạn vào bộ nhớ. Mức mặc định ban đầu được ghi nhận là 10 MiB; hãy để giá trị này cấu hình được.
 - Validate định dạng đuôi file cho phép và kiểm tra signature/nội dung thực tế của file. Không tin tưởng hoàn toàn vào MIME type hoặc tên file do client cung cấp.
 - Chỉ hỗ trợ các định dạng được liệt kê rõ ràng trong API contract. Từ chối các định dạng không hỗ trợ một cách rõ ràng.
@@ -124,6 +132,7 @@ Coi mọi file tải lên và mọi trường bên trong nó là dữ liệu đ�
 ## 9. Kiểm thử và xác minh (Testing and verification)
 
 Đối với mỗi thay đổi về hành vi:
+
 1. Thêm hoặc cập nhật test trước khi coi tác vụ là hoàn thành.
 2. Kiểm thử hành vi bình thường, giá trị biên, đầu vào sai định dạng, và các luồng thất bại.
 3. Kiểm thử các parser độc lập với FastAPI khi có thể.
@@ -137,6 +146,7 @@ Tuyệt đối không làm suy yếu, xóa bỏ hoặc bỏ qua (skip) một tes
 ## 10. Ranh giới tích hợp ASP.NET Core
 
 Khi chuẩn bị tích hợp với hệ thống ASP.NET Core Clean Architecture:
+
 - ASP.NET Core sở hữu việc xác thực/phân quyền, danh tính người dùng, validation nghiệp vụ, điều phối workflow, và lưu trữ dữ liệu nghiệp vụ.
 - Tầng Application của .NET nên phụ thuộc vào một abstraction như `IDocumentExtractor` thay vì tham chiếu trực tiếp đến FastAPI hoặc chi tiết triển khai `HttpClient`.
 - Tầng Infrastructure của .NET triển khai adapter bằng một typed `HttpClient`.
@@ -158,6 +168,7 @@ Khi chuẩn bị tích hợp với hệ thống ASP.NET Core Clean Architecture:
 ## 12. Tài liệu và hỗ trợ học tập
 
 Sau khi một tính năng được triển khai và xác minh:
+
 - Cập nhật các tài liệu liên quan về requirements, kiến trúc, API contract, cài đặt, hoặc roadmap khi hành vi đã thay đổi.
 - Thêm một dev log ngắn khi tính năng giới thiệu một khái niệm hoặc quyết định kiến trúc có ý nghĩa. Sử dụng `docs/development/dev-log-template.md`.
 - Giải thích các khái niệm Python/FastAPI quan trọng bằng tiếng Việt trong phần tóm tắt hoàn thành: điều gì đã thay đổi, tại sao lại chọn thiết kế đó, cách kiểm thử như thế nào, và một hoặc hai đánh đổi (trade-offs).
@@ -166,6 +177,7 @@ Sau khi một tính năng được triển khai và xác minh:
 ## 13. Định dạng phản hồi khi hoàn thành
 
 Khi kết thúc một tác vụ code, hãy báo cáo:
+
 1. **Đã triển khai (Implemented)** — các file/tính năng đã thay đổi.
 2. **Ghi chú thiết kế (Design notes)** — các quyết định quan trọng và đánh đổi.
 3. **Xác minh (Verification)** — các lệnh/test chính xác và kết quả.
