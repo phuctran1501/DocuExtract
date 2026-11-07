@@ -1,6 +1,6 @@
 # Kế hoạch triển khai: Phase 1 — Nền tảng Xử lý Văn bản (Text Processing Foundation)
 
-- **Trạng thái:** Đề xuất
+- **Trạng thái:** Hoàn thành
 - **Đặc tả liên quan:** `docs/product/requirements.md` (FR-04, FR-08, FR-10), `docs/architecture/architecture.md`, `docs/architecture/api-contract.md` (Mục 4)
 - **Issue liên quan:** Phase 1 trong `docs/development/roadmap.md`
 
@@ -89,8 +89,11 @@ HTTP Response (200 OK + Header X-Correlation-ID)
    class TextAnalyzeRequest(BaseModel):
        text: str = Field(..., description="Văn bản cần phân tích và tính toán thống kê.")
 
+
    class TextAnalyzeResponse(BaseModel):
-       character_count: int = Field(..., ge=0, description="Tổng số ký tự sau khi chuẩn hóa.")
+       character_count: int = Field(
+           ..., ge=0, description="Tổng số ký tự sau khi chuẩn hóa."
+       )
        word_count: int = Field(..., ge=0, description="Tổng số từ.")
        line_count: int = Field(..., ge=0, description="Tổng số dòng.")
    ```

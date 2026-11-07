@@ -14,10 +14,10 @@ Lộ trình được sắp xếp để tạo ra một vertical slice hoạt đ�
 
 ## Phase 1 — Nền tảng xử lý văn bản
 
-- [ ] Xác định chính sách chuẩn hóa văn bản.
-- [ ] Triển khai thống kê ký tự/từ/dòng mang tính xác định.
-- [ ] Thêm unit test cho Unicode, whitespace, input rỗng và các ký tự xuống dòng.
-- [ ] Thêm endpoint tùy chọn `POST /api/v1/text/analyze`.
+- [x] Xác định chính sách chuẩn hóa văn bản.
+- [x] Triển khai thống kê ký tự/từ/dòng mang tính xác định.
+- [x] Thêm unit test cho Unicode, whitespace, input rỗng và các ký tự xuống dòng.
+- [x] Thêm endpoint tùy chọn `POST /api/v1/text/analyze`.
 
 **Tiêu chí thoát:** hành vi của service được bao phủ bởi unit test và API test.
 
