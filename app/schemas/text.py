@@ -21,4 +21,3 @@ class TextAnalyzeResponse(BaseModel):
     )
     word_count: int = Field(..., ge=0, description="Total word count.")
     line_count: int = Field(..., ge=0, description="Total line count.")
-
