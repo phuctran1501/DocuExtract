@@ -1,4 +1,4 @@
-# DocuExtract
+# Document-Extract
 
 > Một microservice xử lý tài liệu ưu tiên học tập, được xây dựng bằng Python và FastAPI, thiết kế để tích hợp với các ứng dụng ASP.NET Core.
 
